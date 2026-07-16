@@ -2,13 +2,14 @@
 
 Complete, drop-in custom SpamAssassin ruleset for `/etc/spamassassin`.
 
-Designed for:
+This ruleset is rule-based (Bayesian learning is disabled by default) and
+focuses on DNSBL/URIBL reputation, SPF/DKIM/DMARC authentication, body/header
+heuristics, and Turkish-language spam detection.
 
-- SpamAssassin 4.0.0
-- Perl 5.38.2
-- Single LAN: `192.168.1.0/24`
-- Rule-based filtering **without Bayesian learning**
-- `required_score 6.0`
+> **Adjust to your environment:** network settings (`trusted_networks`,
+> `internal_networks`), `required_score`, locale and other site-specific
+> values are configured in `local.cf` and `00_global.cf`.  Edit these files to
+> match your server before going to production.
 
 ## Features
 

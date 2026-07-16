@@ -7,11 +7,10 @@ hand-written rules, DNSBL/URIBL lookups, SPF/DKIM/DMARC checks, and Turkish
 language spam detection.
 
 ## Target Environment
-- SpamAssassin 4.0.0
-- Perl 5.38.2
-- Single LAN: `192.168.1.0/24`
-- `required_score 6.0`
-- Bayes/learning disabled
+This ruleset is developed and tested with SpamAssassin 4.0.0 on Perl 5.38.2.
+The default configuration disables Bayesian learning and expects a single LAN
+environment, but the network, scoring and locale settings in `local.cf` and
+`00_global.cf` should be reviewed and adjusted for the specific deployment.
 
 ## File Loading Order
 SpamAssassin loads `.cf` files in `/etc/spamassassin` alphabetically. The
