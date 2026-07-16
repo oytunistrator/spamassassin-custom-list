@@ -48,10 +48,10 @@ files directly:
 - `turkish_spam_phrases.txt`
 
 ## Installation Note
-This repo is designed to be cloned into `/etc/spamassassin` (or a subfolder
-thereof) and then installed with `install.sh`.  SpamAssassin does not recurse
-into subdirectories when loading `.cf` files, so running the installer copies
-the rules into the active configuration directory.
+This repo is designed to be cloned into a subfolder under `/etc/spamassassin`
+and registered with SpamAssassin via `install.sh`.  The installer creates a
+single include file in `/etc/spamassassin` that loads the rules from the
+subfolder.  No existing SpamAssassin configuration files are overwritten.
 
 ## Testing
 Run `tests/test.sh` or manually after installing:

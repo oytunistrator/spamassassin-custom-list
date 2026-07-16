@@ -22,12 +22,11 @@ Designed for:
 
 ## Installation
 
-SpamAssassin reads `.cf` files directly from `/etc/spamassassin` (or
-`/etc/mail/spamassassin` on some distributions).  The recommended workflow is
-to clone into a subfolder under `/etc/spamassassin` and then run the included
-installer, which copies the files into place.
+This ruleset is kept in its own subfolder under `/etc/spamassassin` and is
+**never** copied over your existing SpamAssassin configuration.  A small
+include file is created so SpamAssassin loads the custom rules.
 
-### Option 1: Clone to a subfolder and install
+### Clone and register
 
 ```bash
 cd /etc/spamassassin
@@ -35,17 +34,14 @@ git clone https://github.com/oytunistrator/spamassassin-custom-list oytunistrato
 bash oytunistrator-custom-list/install.sh
 ```
 
-The installer backs up `/etc/spamassassin`, then copies all `.cf` files and
-the `lists/` and `tests/` directories into `/etc/spamassassin`.
+`install.sh` creates `/etc/spamassassin/zz_oytun_custom_list.cf`, which
+includes all `.cf` files from the cloned subfolder in alphabetical order.  No
+existing files in `/etc/spamassassin` are modified or overwritten.
 
-### Option 2: Install directly into `/etc/spamassassin`
-
-If `/etc/spamassassin` is already a Git repository or you want to replace its
-contents:
+To disable the ruleset later, simply remove the include file:
 
 ```bash
-cd /etc/spamassassin
-git clone https://github.com/oytunistrator/spamassassin-custom-list.git .
+rm /etc/spamassassin/zz_oytun_custom_list.cf
 ```
 
 ### Restart services
