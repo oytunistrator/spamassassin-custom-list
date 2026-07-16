@@ -23,24 +23,24 @@ describe  SPF_PASS            SPF: sender matches SPF record
 
 # ---------------------------------------------------------------------------
 # DKIM
+# 'full' rule type is required because DKIM eval functions inspect the whole
+# message, not only the headers.
 # ---------------------------------------------------------------------------
-header    DKIM_INVALID        eval:check_dkim_verified()
+full      DKIM_INVALID        eval:check_dkim_verified()
 describe  DKIM_INVALID        DKIM signature invalid or verification failed
 
-header    DKIM_SIGNED         eval:check_dkim_signed()
+full      DKIM_SIGNED         eval:check_dkim_signed()
 describe  DKIM_SIGNED         DKIM signature present
 
-header    DKIM_VALID          eval:check_dkim_verified()
+full      DKIM_VALID          eval:check_dkim_verified()
 describe  DKIM_VALID          DKIM signature valid
 
 # DKIM_ADSP is deprecated in SA 4.0; use DMARC instead.
 
 # ---------------------------------------------------------------------------
 # DMARC
+# DMARC_FAIL is derived because there is no dedicated check_dmarc_fail eval.
 # ---------------------------------------------------------------------------
-header    DMARC_FAIL          eval:check_dmarc_fail()
-describe  DMARC_FAIL          DMARC authentication failed
-
 header    DMARC_PASS          eval:check_dmarc_pass()
 describe  DMARC_PASS          DMARC authentication passed
 
@@ -52,6 +52,9 @@ describe  DMARC_QUARANTINE    DMARC policy suggests quarantine
 
 header    DMARC_REJECT        eval:check_dmarc_reject()
 describe  DMARC_REJECT        DMARC policy suggests reject
+
+meta      DMARC_FAIL          (!DMARC_PASS && !DMARC_NONE)
+describe  DMARC_FAIL          DMARC authentication failed
 
 # ---------------------------------------------------------------------------
 # Composite helpers

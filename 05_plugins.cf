@@ -10,7 +10,6 @@ loadplugin Mail::SpamAssassin::Plugin::SPF
 # DKIM: domain keys identified mail
 # ---------------------------------------------------------------------------
 loadplugin Mail::SpamAssassin::Plugin::DKIM
-full_dkim_verification 1
 
 # ---------------------------------------------------------------------------
 # DMARC: domain-based message authentication
@@ -79,17 +78,11 @@ loadplugin Mail::SpamAssassin::Plugin::HTMLEval
 # loadplugin Mail::SpamAssassin::Plugin::RelayCountry
 
 # ---------------------------------------------------------------------------
-# SPF plugin specific options
+# Network test timeouts (covers RBL, URIBL, SPF, DKIM, DMARC)
 # ---------------------------------------------------------------------------
-spf_timeout 5
-
-# ---------------------------------------------------------------------------
-# DMARC plugin options
-# ---------------------------------------------------------------------------
-dmarc_timeout 5
+rbl_timeout 5
 
 # ---------------------------------------------------------------------------
 # URIDNSBL plugin options
 # ---------------------------------------------------------------------------
-uridnsbl_timeout 5
 uridnsbl_max_domains 20

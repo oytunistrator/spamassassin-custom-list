@@ -28,7 +28,7 @@ describe  META_PHISHING_HEURISTICS   Financial phish with suspicious link
 meta      META_OBFUSCATED_SPAM       (__BODY_OBFUSCATED_TEXT || __TR_OBFUSCATED || __BODY_ALL_CAPS_WORD)
 describe  META_OBFUSCATED_SPAM       Obfuscated or aggressive spam text
 
-meta      META_SUSPICIOUS_HEADERS    (__FROM_HAS_NUMBERS || __FROM_GENERIC_TLD || __FROM_REPLYTO_DIFF || __DATE_IN_FUTURE || __XM_SPAM_MAILER)
+meta      META_SUSPICIOUS_HEADERS    (__FROM_HAS_NUMBERS || __FROM_GENERIC_TLD || __DATE_IN_FUTURE || __XM_SPAM_MAILER)
 describe  META_SUSPICIOUS_HEADERS    Multiple suspicious header signals
 
 meta      META_HIDDEN_HTML           (__RAW_HIDDEN_TEXT && (__BODY_FINANCE_PHISH || __TR_BANKA || __TR_ODUL))

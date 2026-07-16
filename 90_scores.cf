@@ -96,7 +96,7 @@ score __IMPORTANCE_HIGH        0.5
 score __RCVD_HELO_NUMERIC      0.5
 score __RCVD_NO_RDNS           1.0
 score __REPLY_TO_PRESENT       0.2
-score __FROM_REPLYTO_DIFF      1.5
+score __XM_PRESENT             0.0
 
 # ---------------------------------------------------------------------------
 # URI heuristic scores
