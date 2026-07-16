@@ -22,15 +22,33 @@ Designed for:
 
 ## Installation
 
-Clone directly into `/etc/spamassassin`:
+SpamAssassin reads `.cf` files directly from `/etc/spamassassin` (or
+`/etc/mail/spamassassin` on some distributions).  The recommended workflow is
+to clone into a subfolder under `/etc/spamassassin` and then run the included
+installer, which copies the files into place.
+
+### Option 1: Clone to a subfolder and install
 
 ```bash
 cd /etc/spamassassin
-git clone https://github.com/YOUR_USERNAME/spamassassin-custom-list.git .
-# or clone elsewhere and copy files in
+git clone https://github.com/oytunistrator/spamassassin-custom-list oytunistrator-custom-list
+bash oytunistrator-custom-list/install.sh
 ```
 
-Restart `spamd` / Postfix integration as needed:
+The installer backs up `/etc/spamassassin`, then copies all `.cf` files and
+the `lists/` and `tests/` directories into `/etc/spamassassin`.
+
+### Option 2: Install directly into `/etc/spamassassin`
+
+If `/etc/spamassassin` is already a Git repository or you want to replace its
+contents:
+
+```bash
+cd /etc/spamassassin
+git clone https://github.com/oytunistrator/spamassassin-custom-list.git .
+```
+
+### Restart services
 
 ```bash
 systemctl restart spamassassin
