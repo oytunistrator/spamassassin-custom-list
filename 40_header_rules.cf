@@ -1,0 +1,86 @@
+# 40_header_rules.cf - header analysis rules
+# Detect forged, inconsistent, or suspicious message headers.
+
+# ---------------------------------------------------------------------------
+# From / Reply-To / Return-Path mismatches
+# ---------------------------------------------------------------------------
+header    __FROM_HAS_NUMBERS         From =~ /\d+[^\s@]*@/i
+describe  __FROM_HAS_NUMBERS         From address contains numbers
+
+header    __FROM_FREE_HOST           From =~ /\b(?:@gmail\.com|@yahoo\.com|@hotmail\.com|@outlook\.com|@yandex\.com|@mail\.ru|@protonmail\.com)\b/i
+describe  __FROM_FREE_HOST           From uses a free webmail host
+
+header    __FROM_GENERIC_TLD         From =~ /\.(?:top|xyz|click|link|icu|site|store|online|shop|club|live|work)\b/i
+describe  __FROM_GENERIC_TLD         From domain uses a generic TLD
+
+# ---------------------------------------------------------------------------
+# Header charset / encoding issues
+# ---------------------------------------------------------------------------
+header    __SUBJECT_FARAWAY          eval:check_language()
+describe  __SUBJECT_FARAWAY          Subject contains faraway language
+
+header    __HEADERS_FARAWAY          eval:check_language()
+describe  __HEADERS_FARAWAY          Headers contain faraway language
+
+# ---------------------------------------------------------------------------
+# Suspicious Message-ID patterns
+# ---------------------------------------------------------------------------
+header    __MSGID_LOCAL              Message-ID =~ /[@<][a-z0-9]{1,20}\.[a-z]{2,6}[>]/i
+describe  __MSGID_LOCAL              Message-ID looks locally generated
+
+header    __MSGID_NUMERIC            Message-ID =~ /\d{8,}[^@]*@/i
+describe  __MSGID_NUMERIC            Message-ID contains long numeric string
+
+# ---------------------------------------------------------------------------
+# Date / time anomalies
+# ---------------------------------------------------------------------------
+header    __DATE_IN_FUTURE           Date =~ /^\s*(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun), \d{1,2} \w{3} (?:202[7-9]|20[3-9]\d)/i
+describe  __DATE_IN_FUTURE           Date header is in the future
+
+header    __DATE_IN_PAST_96          Date =~ /^\s*(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun), \d{1,2} \w{3} 19\d\d/i
+describe  __DATE_IN_PAST_96          Date header is in the past (pre-2000)
+
+# ---------------------------------------------------------------------------
+# Suspicious X-Mailer / User-Agent
+# ---------------------------------------------------------------------------
+header    __XM_SPAM_MAILER           X-Mailer =~ /\b(?:spamm|mass mailer|bulk email|email marketer|sendblaster|atomic mail sender)\b/i
+describe  __XM_SPAM_MAILER           Known spam mailer software
+
+header    __XM_MISSING               !exists:X-Mailer
+# describe intentionally skipped; used as helper
+
+# ---------------------------------------------------------------------------
+# To / Cc anomalies
+# ---------------------------------------------------------------------------
+header    __TO_EMPTY                 To =~ /^\s*$/
+describe  __TO_EMPTY                 To header appears empty
+
+header    __CC_HAS_BCC_LEAK          Cc =~ /undisclosed-recipients/i
+describe  __CC_HAS_BCC_LEAK          Undisclosed recipients pattern in Cc
+
+# ---------------------------------------------------------------------------
+# Priority / importance abuse
+# ---------------------------------------------------------------------------
+header    __HIGH_PRIORITY            Priority =~ /urgent|high/i
+describe  __HIGH_PRIORITY            Message claims high priority
+
+header    __IMPORTANCE_HIGH          Importance =~ /high/i
+describe  __IMPORTANCE_HIGH          Message claims high importance
+
+# ---------------------------------------------------------------------------
+# Received header helpers
+# ---------------------------------------------------------------------------
+header    __RCVD_HELO_NUMERIC        Received =~ /\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\]/i
+describe  __RCVD_HELO_NUMERIC        Received contains numeric HELO
+
+header    __RCVD_NO_RDNS             Received =~ /\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\]\s*$/i
+describe  __RCVD_NO_RDNS             Last untrusted relay has no rDNS
+
+# ---------------------------------------------------------------------------
+# Reply-To header exists while From is different domain
+# ---------------------------------------------------------------------------
+header    __REPLY_TO_PRESENT         Reply-To =~ /./
+describe  __REPLY_TO_PRESENT         Reply-To header present
+
+header    __FROM_REPLYTO_DIFF        eval:check_for_from_reply_to_diff()
+describe  __FROM_REPLYTO_DIFF        From and Reply-To use different domains

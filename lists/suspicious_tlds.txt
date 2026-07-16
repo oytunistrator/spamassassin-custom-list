@@ -1,0 +1,35 @@
+# lists/suspicious_tlds.txt
+# Reference list of generic or frequently abused TLDs.
+# These are NOT treated as standalone spam indicators.
+# The heuristic rule in 50_uri_rules.cf adds only a small score.
+#
+# top
+# xyz
+# click
+# link
+# icu
+# site
+# store
+# online
+# shop
+# club
+# live
+# work
+# fun
+# space
+# website
+# today
+# uno
+# download
+# racing
+# win
+# bid
+# date
+# loan
+# men
+# party
+# review
+# science
+# stream
+# trade
+# webcam

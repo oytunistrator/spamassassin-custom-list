@@ -1,0 +1,103 @@
+# 75_whitelist_research.txt
+# Research notes for whitelisted domains.
+# Sources and rationale for the domains included in 70_whitelist.cf.
+
+## Turkish Banks (Deposit, Development, Investment, Participation)
+Sourced from the Banks Association of Turkey (TBB) and Participation Banks
+Association of Turkey (TKBB) data as of June 2025.
+Reference: https://en.wikipedia.org/wiki/List_of_banks_in_Turkey
+
+Major deposit banks:
+- ziraatbank.com.tr   (Ziraat Bank, state-owned)
+- vakifbank.com.tr    (VakıfBank)
+- isbank.com.tr       (İşbank)
+- halkbank.com.tr     (Halkbank)
+- garantibbva.com.tr  (Garanti BBVA)
+- akbank.com          (Akbank)
+- yapikredi.com.tr    (Yapı ve Kredi Bankası)
+- qnb.com.tr          (QNB Finansbank)
+- denizbank.com       (Denizbank)
+- teb.com.tr          (Türk Ekonomi Bankası)
+- sekerbank.com.tr    (Şekerbank)
+- fibabanka.com.tr    (Fibabanka)
+- burgan.com.tr       (Burgan Bank)
+- anadolubank.com.tr  (Anadolubank)
+- alternatifbank.com.tr (Alternatif Bank)
+- citibank.com.tr     (Citibank Turkey)
+- icbc.com.tr         (ICBC Turkey)
+- odeabank.com.tr     (Odeabank)
+- hsbc.com.tr         (HSBC Turkey)
+- ing.com.tr          (ING Turkey)
+
+Participation banks:
+- kuveytturk.com.tr   (Kuveyt Türk)
+- ziraatkatilim.com.tr (Ziraat Katılım)
+- vakifkatilim.com.tr (Vakıf Katılım)
+- albaraka.com.tr     (Albaraka Türk)
+- turkiyefinans.com.tr (Türkiye Finans)
+- emlakbank.com.tr    (Emlak Katılım)
+- dunyakatilim.com.tr (Dünya Katılım)
+- hayatfinans.com.tr  (Hayat Finans)
+- tombank.com.tr      (TOM Bank)
+
+## Turkish Government / Public Institutions
+- turkiye.gov.tr      (e-Devlet)
+- gib.gov.tr          (Gelir İdaresi Başkanlığı)
+- sgk.gov.tr          (Sosyal Güvenlik Kurumu)
+- meb.gov.tr          (Milli Eğitim Bakanlığı)
+- tcmb.gov.tr         (Türkiye Cumhuriyet Merkez Bankası)
+- bddk.org.tr         (Bankacılık Düzenleme ve Denetleme Kurumu)
+- tbb.org.tr          (Türkiye Bankalar Birliği)
+- tkbb.org.tr         (Türkiye Katılım Bankaları Birliği)
+- ptt.gov.tr          (PTT)
+
+## Popular Turkish E-commerce and Services
+- hepsiburada.com
+- trendyol.com
+- n11.com
+- sahibinden.com
+- getir.com
+- yemeksepeti.com
+- migros.com.tr
+- carrefoursa.com.tr
+- a101.com.tr
+- bim.com.tr
+- sokmarket.com.tr
+- teknosa.com
+- vatanbilgisayar.com
+- mediamarkt.com.tr
+
+## Telecom / ISP
+- turktelekom.com.tr
+- vodafone.com.tr
+- turkcell.com.tr
+- ttnet.com.tr
+- superonline.net
+
+## Global Trusted Services
+- google.com / gmail.com / youtube.com
+- microsoft.com / outlook.com / live.com / hotmail.com
+- apple.com / icloud.com / me.com
+- amazon.com / amazon.co.uk / amazon.de
+- paypal.com
+- linkedin.com
+- github.com / gitlab.com
+- instagram.com / facebook.com / twitter.com / x.com
+- reddit.com
+- spotify.com
+- netflix.com
+- discord.com
+- dropbox.com
+- zoom.us
+- slack.com
+- telegram.org
+- whatsapp.com
+- steamcommunity.com / steampowered.com
+- cloudflare.com
+
+## Rationale
+These domains are either regulated financial institutions, government bodies,
+or large services with strong SPF/DKIM/DMARC policies.  They are frequent
+phishing targets, so whitelisting their legitimate mail reduces false
+positives while the ruleset still catches forged phishing attempts through
+SPF/DKIM/DMARC failures.

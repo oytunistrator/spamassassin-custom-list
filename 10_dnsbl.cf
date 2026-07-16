@@ -1,0 +1,58 @@
+# 10_dnsbl.cf - DNS blocklist (RBL) rules
+# These rules query public DNSBL zones.  Ensure your resolver can reach them.
+# Some services require free registration or have query limits.
+
+# ---------------------------------------------------------------------------
+# Spamhaus ZEN (free for low-volume / non-commercial use; query limits apply)
+# Combines SBL, CSS, XBL, PBL.
+# ---------------------------------------------------------------------------
+header    RCVD_IN_ZEN         eval:check_rbl('zen-lastexternal','zen.spamhaus.org.')
+describe  RCVD_IN_ZEN         Received via a relay in Spamhaus ZEN
+
+# ---------------------------------------------------------------------------
+# SpamCop (free, requires registration for high-volume usage)
+# ---------------------------------------------------------------------------
+header    RCVD_IN_SPAMCOP     eval:check_rbl('spamcop-lastexternal','bl.spamcop.net.')
+describe  RCVD_IN_SPAMCOP     Received via a relay in SpamCop blocklist
+
+# ---------------------------------------------------------------------------
+# Abuse.ch Spamhaus (persistent spam senders)
+# ---------------------------------------------------------------------------
+header    RCVD_IN_ABUSECH     eval:check_rbl('abusech-lastexternal','spam.abuse.ch.')
+describe  RCVD_IN_ABUSECH     Received via a relay in Abuse.ch blocklist
+
+# ---------------------------------------------------------------------------
+# Abuse.ch Botnet C2
+# ---------------------------------------------------------------------------
+header    RCVD_IN_ABUSECH_BOT eval:check_rbl('abusechbot-lastexternal','botnet.abuse.ch.')
+describe  RCVD_IN_ABUSECH_BOT Received via a relay in Abuse.ch botnet list
+
+# ---------------------------------------------------------------------------
+# Barracuda Reputation Block List (BRBL)
+# Free registration required at https://barracudacentral.org/account/register
+# ---------------------------------------------------------------------------
+# header    RCVD_IN_BRBL        eval:check_rbl('brbl-lastexternal','b.barracudacentral.org.')
+# describe  RCVD_IN_BRBL        Received via a relay in Barracuda BRBL
+
+# ---------------------------------------------------------------------------
+# DNSBL combinations (multiple independent hits)
+# ---------------------------------------------------------------------------
+header    RCVD_IN_MULTIPLE    eval:check_rbl_sub('zen-lastexternal','127.0.0.2','set')
+# This meta rule is expanded in 60_meta_rules.cf
+
+# ---------------------------------------------------------------------------
+# Direct-to-MX / dial-up dynamic IP detection
+# ---------------------------------------------------------------------------
+header    RCVD_IN_PBL         eval:check_rbl('zen-lastexternal','zen.spamhaus.org.','127.0.0.10/127.0.0.11')
+describe  RCVD_IN_PBL         Received via a PBL-listed (end-user) IP
+
+# ---------------------------------------------------------------------------
+# Aggregate DNSBL score helper (used by meta rules)
+# ---------------------------------------------------------------------------
+meta      __DNSBL_HIT         (RCVD_IN_ZEN || RCVD_IN_SPAMCOP || RCVD_IN_ABUSECH)
+describe  __DNSBL_HIT         Internal: at least one DNSBL hit
+
+# ---------------------------------------------------------------------------
+# Disable DNSBL checks if you do not want to query third parties
+# ---------------------------------------------------------------------------
+# To disable any rule, set its score to 0 in 90_scores.cf

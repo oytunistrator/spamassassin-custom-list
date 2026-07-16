@@ -1,0 +1,210 @@
+# 70_whitelist.cf - address and domain whitelist
+# Heavily weight known-good senders to prevent false positives.
+# This file is split into researched banks, government sites, popular
+# Turkish services, and global trusted services.
+
+# ---------------------------------------------------------------------------
+# Research notes
+# Bank list sourced from the Banks Association of Turkey (TBB) and
+# Participation Banks Association of Turkey (TKBB) data as of June 2025.
+# Wikipedia: https://en.wikipedia.org/wiki/List_of_banks_in_Turkey
+# Government and popular domains verified from public sites.
+# ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
+# Turkish banks - deposit, development, investment, participation
+# ---------------------------------------------------------------------------
+whitelist_from  *@ziraatbank.com.tr
+whitelist_from  *@vakifbank.com.tr
+whitelist_from  *@isbank.com.tr
+whitelist_from  *@halkbank.com.tr
+whitelist_from  *@garantibbva.com.tr
+whitelist_from  *@akbank.com
+whitelist_from  *@akbank.com.tr
+whitelist_from  *@yapikredi.com.tr
+whitelist_from  *@qnb.com.tr
+whitelist_from  *@denizbank.com
+whitelist_from  *@teb.com.tr
+whitelist_from  *@sekerbank.com.tr
+whitelist_from  *@fibabanka.com.tr
+whitelist_from  *@burgan.com.tr
+whitelist_from  *@anadolubank.com.tr
+whitelist_from  *@alternatifbank.com.tr
+whitelist_from  *@citibank.com.tr
+whitelist_from  *@icbc.com.tr
+whitelist_from  *@odeabank.com.tr
+whitelist_from  *@turkticaretbankasi.com.tr
+whitelist_from  *@destekbank.com
+whitelist_from  *@atbank.com.tr
+whitelist_from  *@tbank.com.tr
+whitelist_from  *@goldenglobalbank.com.tr
+whitelist_from  *@enpara.com
+whitelist_from  *@pashabank.com.tr
+whitelist_from  *@qyatirimbankasi.com.tr
+whitelist_from  *@fonbank.com.tr
+whitelist_from  *@intesasanpaolo.com.tr
+whitelist_from  *@bankofchina.com.tr
+whitelist_from  *@terabank.com.tr
+whitelist_from  *@dybank.com.tr
+whitelist_from  *@turkishbankgroup.com
+whitelist_from  *@ziraatdinamik.com.tr
+whitelist_from  *@colendibank.com
+whitelist_from  *@rabobank.com.tr
+whitelist_from  *@gsdbank.com.tr
+whitelist_from  *@mellatbank.com
+whitelist_from  *@hedefyatirimbankasi.com.tr
+whitelist_from  *@bankpozitif.com.tr
+whitelist_from  *@standardchartered.com.tr
+whitelist_from  *@hbl.com.tr
+whitelist_from  *@dilerbank.com.tr
+whitelist_from  *@societegenerale.com.tr
+whitelist_from  *@fupsbank.com
+whitelist_from  *@aytemizbank.com.tr
+whitelist_from  *@hsbc.com.tr
+whitelist_from  *@ing.com.tr
+whitelist_from  *@kalkinma.com.tr
+whitelist_from  *@tskb.com.tr
+whitelist_from  *@takasbank.com.tr
+whitelist_from  *@eximbank.gov.tr
+whitelist_from  *@ilbank.gov.tr
+whitelist_from  *@nurolbank.com.tr
+
+# Participation banks
+whitelist_from  *@kuveytturk.com.tr
+whitelist_from  *@ziraatkatilim.com.tr
+whitelist_from  *@vakifkatilim.com.tr
+whitelist_from  *@albaraka.com.tr
+whitelist_from  *@turkiyefinans.com.tr
+whitelist_from  *@emlakbank.com.tr
+whitelist_from  *@dunyakatilim.com.tr
+whitelist_from  *@hayatfinans.com.tr
+whitelist_from  *@tombank.com.tr
+
+# ---------------------------------------------------------------------------
+# Turkish government / e-devlet / public institutions
+# ---------------------------------------------------------------------------
+whitelist_from  *@turkiye.gov.tr
+whitelist_from  *@gib.gov.tr
+whitelist_from  *@sgk.gov.tr
+whitelist_from  *@meb.gov.tr
+whitelist_from  *@e-okul.meb.gov.tr
+whitelist_from  *@tcmb.gov.tr
+whitelist_from  *@merkezbankasi.org.tr
+whitelist_from  *@byymm.gov.tr
+whitelist_from  *@adalet.gov.tr
+whitelist_from  *@icisleri.gov.tr
+whitelist_from  *@tbb.org.tr
+whitelist_from  *@tkbb.org.tr
+whitelist_from  *@bddk.org.tr
+whitelist_from  *@tubitak.gov.tr
+whitelist_from  *@ptt.gov.tr
+whitelist_from  *@turkpos.com.tr
+whitelist_from  *@interpay.com.tr
+
+# ---------------------------------------------------------------------------
+# Popular Turkish e-commerce / services
+# ---------------------------------------------------------------------------
+whitelist_from  *@hepsiburada.com
+whitelist_from  *@trendyol.com
+whitelist_from  *@n11.com
+whitelist_from  *@sahibinden.com
+whitelist_from  *@getir.com
+whitelist_from  *@yemeksepeti.com
+whitelist_from  *@tiklagelsin.com
+whitelist_from  *@migros.com.tr
+whitelist_from  *@carrefoursa.com.tr
+whitelist_from  *@a101.com.tr
+whitelist_from  *@bim.com.tr
+whitelist_from  *@sokmarket.com.tr
+whitelist_from  *@mediamarkt.com.tr
+whitelist_from  *@teknosa.com
+whitelist_from  *@vatanbilgisayar.com
+whitelist_from  *@istikbal.com.tr
+whitelist_from  *@bellona.com.tr
+whitelist_from  *@evidea.com
+whitelist_from  *@decathlon.com.tr
+whitelist_from  *@nike.com
+whitelist_from  *@adidas.com.tr
+
+# Telecom / ISP / utilities
+whitelist_from  *@turktelekom.com.tr
+whitelist_from  *@vodafone.com.tr
+whitelist_from  *@turkcell.com.tr
+whitelist_from  *@ttnet.com.tr
+whitelist_from  *@superonline.net
+whitelist_from  *@millenicom.com
+whitelist_from  *@türktelekommobil.com
+whitelist_from  *@enerjisa.com.tr
+whitelist_from  *@icdas.com.tr
+whitelist_from  *@iski.gov.tr
+
+# ---------------------------------------------------------------------------
+# Global trusted services
+# ---------------------------------------------------------------------------
+whitelist_from  *@google.com
+whitelist_from  *@gmail.com
+whitelist_from  *@youtube.com
+whitelist_from  *@microsoft.com
+whitelist_from  *@outlook.com
+whitelist_from  *@live.com
+whitelist_from  *@hotmail.com
+whitelist_from  *@apple.com
+whitelist_from  *@icloud.com
+whitelist_from  *@me.com
+whitelist_from  *@steamcommunity.com
+whitelist_from  *@steampowered.com
+whitelist_from  *@amazon.com
+whitelist_from  *@amazon.co.uk
+whitelist_from  *@amazon.de
+whitelist_from  *@paypal.com
+whitelist_from  *@linkedin.com
+whitelist_from  *@github.com
+whitelist_from  *@gitlab.com
+whitelist_from  *@instagram.com
+whitelist_from  *@facebook.com
+whitelist_from  *@twitter.com
+whitelist_from  *@x.com
+whitelist_from  *@reddit.com
+whitelist_from  *@spotify.com
+whitelist_from  *@netflix.com
+whitelist_from  *@discord.com
+whitelist_from  *@dropbox.com
+whitelist_from  *@zoom.us
+whitelist_from  *@slack.com
+whitelist_from  *@telegram.org
+whitelist_from  *@whatsapp.com
+whitelist_from  *@cloudflare.com
+
+# ---------------------------------------------------------------------------
+# Whitelist authentication-based senders (SPF/DKIM/DMARC)
+# ---------------------------------------------------------------------------
+whitelist_auth  *@google.com
+whitelist_auth  *@microsoft.com
+whitelist_auth  *@apple.com
+whitelist_auth  *@amazon.com
+whitelist_auth  *@paypal.com
+
+# ---------------------------------------------------------------------------
+# URI whitelist - trusted domains found in message bodies
+# ---------------------------------------------------------------------------
+whitelist_uri_host  turkiye.gov.tr
+whitelist_uri_host  gib.gov.tr
+whitelist_uri_host  sgk.gov.tr
+whitelist_uri_host  meb.gov.tr
+whitelist_uri_host  ziraatbank.com.tr
+whitelist_uri_host  garantibbva.com.tr
+whitelist_uri_host  akbank.com
+whitelist_uri_host  isbank.com.tr
+whitelist_uri_host  google.com
+whitelist_uri_host  microsoft.com
+whitelist_uri_host  apple.com
+whitelist_uri_host  amazon.com
+whitelist_uri_host  paypal.com
+whitelist_uri_host  github.com
+whitelist_uri_host  linkedin.com
+
+# ---------------------------------------------------------------------------
+# Address list include (for local additions)
+# ---------------------------------------------------------------------------
+include lists/whitelisted_senders.txt
+include lists/whitelisted_domains.txt

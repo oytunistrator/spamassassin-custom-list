@@ -1,0 +1,7 @@
+# lists/whitelisted_domains.txt
+# Add additional trusted domains here, one per line, in whitelist_from format.
+# This file is included by 70_whitelist.cf.
+#
+# Example:
+# whitelist_from *@mycompany.com
+# whitelist_from *@trusted-partner.net

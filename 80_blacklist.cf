@@ -1,0 +1,48 @@
+# 80_blacklist.cf - address, domain and IP blacklist
+# ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
+# Blacklisted senders and domains
+# ---------------------------------------------------------------------------
+include lists/blacklisted_senders.txt
+include lists/blacklisted_domains.txt
+
+# ---------------------------------------------------------------------------
+# Blacklisted IP addresses / ranges
+# The header rule below matches any IP listed in lists/blacklisted_ips.txt
+# inside a Received header.
+# ---------------------------------------------------------------------------
+header    __BLACKLISTED_IP_1       Received =~ /192\.0\.2\.100/
+# Note: SpamAssassin does not directly support per-line IP list includes in
+# header regex.  For a large IP list, generate rules or use a DNSBL.
+# The file lists/blacklisted_ips.txt is kept for manual reference and
+# MTA-level firewall rules.
+
+# ---------------------------------------------------------------------------
+# Generic spam patterns
+# ---------------------------------------------------------------------------
+blacklist_from  *@*.top
+blacklist_from  *@*.xyz
+blacklist_from  *@*.click
+blacklist_from  *@*.link
+blacklist_from  *@*.icu
+blacklist_from  *@*.date
+blacklist_from  *@*.loan
+blacklist_from  *@*.men
+blacklist_from  *@*.party
+blacklist_from  *@*.review
+blacklist_from  *@*.science
+blacklist_from  *@*.stream
+blacklist_from  *@*.trade
+blacklist_from  *@*.webcam
+
+# ---------------------------------------------------------------------------
+# High-confidence spam senders (examples)
+# Uncomment or edit to match your local threat feed.
+# ---------------------------------------------------------------------------
+# blacklist_from  *@phishing-example.com
+# blacklist_from  spammer@example.com
+# blacklist_uri_host  spam-domain.example
+
+# Note: lists/blacklisted_domains.txt is included above and should contain
+# blacklist_from and/or blacklist_uri_host directives.

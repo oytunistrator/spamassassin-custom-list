@@ -1,0 +1,95 @@
+# 05_plugins.cf - plugin activation and options
+# SpamAssassin 4.0.0
+
+# ---------------------------------------------------------------------------
+# SPF: sender policy framework validation
+# ---------------------------------------------------------------------------
+loadplugin Mail::SpamAssassin::Plugin::SPF
+
+# ---------------------------------------------------------------------------
+# DKIM: domain keys identified mail
+# ---------------------------------------------------------------------------
+loadplugin Mail::SpamAssassin::Plugin::DKIM
+full_dkim_verification 1
+
+# ---------------------------------------------------------------------------
+# DMARC: domain-based message authentication
+# ---------------------------------------------------------------------------
+loadplugin Mail::SpamAssassin::Plugin::DMARC
+
+# ---------------------------------------------------------------------------
+# URIDNSBL: URI reputation via DNS blocklists
+# ---------------------------------------------------------------------------
+loadplugin Mail::SpamAssassin::Plugin::URIDNSBL
+
+# ---------------------------------------------------------------------------
+# DNSEval: RBL/DNSBL evaluation
+# ---------------------------------------------------------------------------
+loadplugin Mail::SpamAssassin::Plugin::DNSEval
+
+# ---------------------------------------------------------------------------
+# WLBLEval: whitelist/blacklist evaluation helpers
+# ---------------------------------------------------------------------------
+loadplugin Mail::SpamAssassin::Plugin::WLBLEval
+
+# ---------------------------------------------------------------------------
+# HashBL: hash-based blocklist (optional, may require network access)
+# ---------------------------------------------------------------------------
+# loadplugin Mail::SpamAssassin::Plugin::HashBL
+
+# ---------------------------------------------------------------------------
+# OLEMacro: detect malicious Office macros (optional)
+# ---------------------------------------------------------------------------
+# loadplugin Mail::SpamAssassin::Plugin::OLEMacro
+
+# ---------------------------------------------------------------------------
+# TextCat: language/charset detection
+# ---------------------------------------------------------------------------
+loadplugin Mail::SpamAssassin::Plugin::TextCat
+ok_languages tr en
+
+# ---------------------------------------------------------------------------
+# MIMEEval: MIME structure checks
+# ---------------------------------------------------------------------------
+loadplugin Mail::SpamAssassin::Plugin::MIMEEval
+
+# ---------------------------------------------------------------------------
+# HTMLEval: HTML-specific checks
+# ---------------------------------------------------------------------------
+loadplugin Mail::SpamAssassin::Plugin::HTMLEval
+
+# ---------------------------------------------------------------------------
+# ReplaceTags / ReplaceTagsWith / Bayes: disabled
+# ---------------------------------------------------------------------------
+# loadplugin Mail::SpamAssassin::Plugin::Bayes
+
+# ---------------------------------------------------------------------------
+# AutoLearnThreshold: disabled since Bayes is disabled
+# ---------------------------------------------------------------------------
+# loadplugin Mail::SpamAssassin::Plugin::AutoLearnThreshold
+
+# ---------------------------------------------------------------------------
+# AWL: auto-whitelist disabled (depends on Bayes)
+# ---------------------------------------------------------------------------
+# loadplugin Mail::SpamAssassin::Plugin::AWL
+
+# ---------------------------------------------------------------------------
+# RelayCountry: optional - adds country metadata for Received hops
+# ---------------------------------------------------------------------------
+# loadplugin Mail::SpamAssassin::Plugin::RelayCountry
+
+# ---------------------------------------------------------------------------
+# SPF plugin specific options
+# ---------------------------------------------------------------------------
+spf_timeout 5
+
+# ---------------------------------------------------------------------------
+# DMARC plugin options
+# ---------------------------------------------------------------------------
+dmarc_timeout 5
+
+# ---------------------------------------------------------------------------
+# URIDNSBL plugin options
+# ---------------------------------------------------------------------------
+uridnsbl_timeout 5
+uridnsbl_max_domains 20

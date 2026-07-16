@@ -1,0 +1,26 @@
+# lists/short_url_services.txt
+# Reference list of known URL shorteners.
+# These are NOT treated as standalone spam indicators.
+# The heuristic rule in 50_uri_rules.cf adds only a small score; URIBL
+# reputation checks are used for the real decision.
+#
+# bit.ly
+# t.ly
+# tinyurl.com
+# t.co
+# ow.ly
+# short.link
+# is.gd
+# cli.gs
+# cutt.ly
+# rb.gy
+# me.se
+# tr.im
+# bl.nk
+# budurl.com
+# snipurl.com
+# x.co
+# qr.ae
+# shorturl.at
+# rebrand.ly
+# bitly.com

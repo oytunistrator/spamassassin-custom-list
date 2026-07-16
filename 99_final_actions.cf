@@ -1,0 +1,37 @@
+# 99_final_actions.cf - final message actions
+# This file is loaded last so it can override or extend earlier actions.
+
+# ---------------------------------------------------------------------------
+# Subject tag for spam
+# ---------------------------------------------------------------------------
+rewrite_header Subject *****SPAM*****
+
+# ---------------------------------------------------------------------------
+# Final report handling
+# 1 = attach original as message/rfc822
+# 0 = modify headers only (useful if MTA quarantines)
+# ---------------------------------------------------------------------------
+report_safe 1
+
+# ---------------------------------------------------------------------------
+# Copy original headers into the wrapped report when report_safe is enabled
+# ---------------------------------------------------------------------------
+report_safe_copy_headers From To Subject Date Message-ID
+
+# ---------------------------------------------------------------------------
+# Final X-Spam headers
+# ---------------------------------------------------------------------------
+clear_headers
+add_header all Status   _YESNO_, score=_SCORE_ required=_REQD_ tests=_TESTS_ autolearn=_AUTOLEARN_ version=_VERSION_
+add_header all Level    _STARS(*)_
+add_header spam Flag    _YESNOCAPS_
+add_header all Report   _REPORT_
+
+# ---------------------------------------------------------------------------
+# Optional: add a custom header showing the matched meta rules
+# ---------------------------------------------------------------------------
+# add_header spam Rules  _TESTS_
+
+# ---------------------------------------------------------------------------
+# Ensure X-Spam-Checker-Version is kept (cannot be removed)
+# ---------------------------------------------------------------------------

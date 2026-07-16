@@ -1,0 +1,59 @@
+# 50_uri_rules.cf - URI and domain heuristics
+# Shortened URLs and generic TLDs are only weak signals. Real reputation
+# decisions come from URIBL lookups in 15_uribl.cf.
+
+# ---------------------------------------------------------------------------
+# Note on editable lists
+# lists/suspicious_tlds.txt and lists/short_url_services.txt are provided
+# for manual reference.  The heuristic rules below cover the most common
+# entries; add more regex rules here when needed.
+# ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
+# Shortened URL heuristic
+# Low score; combined with URIBL/meta rules for real decisions.
+# ---------------------------------------------------------------------------
+body      __URI_SHORTENER            /https?:\/\/\/(?:bit\.ly|t\.ly|tinyurl\.com|t\.co|ow\.ly|short\.link|is\.gd|cli\.gs|cutt\.ly|rb\.gy|me\.se|tr\.im|bl\.nk|budurl\.com|snipurl\.com|x\.co|qr\.ae)\b/i
+describe  __URI_SHORTENER            URI uses a known URL shortener
+
+# ---------------------------------------------------------------------------
+# Generic / suspicious TLD heuristic
+# ---------------------------------------------------------------------------
+body      __URI_GENERIC_TLD          /https?:\/\/[^\/\s]+\.(?:top|xyz|click|link|icu|site|store|online|shop|club|live|work|fun|space|website|today|click|uno|download|racing|win|bid|date|loan|men|party|review|science|stream|trade|webcam)\b/i
+describe  __URI_GENERIC_TLD          URI uses a generic/suspicious TLD
+
+# ---------------------------------------------------------------------------
+# URL contains raw IP address
+# ---------------------------------------------------------------------------
+body      __URI_IP_ADDRESS           /https?:\/\/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(?::\d+)?\b/i
+describe  __URI_IP_ADDRESS           URI uses a raw IP address
+
+# ---------------------------------------------------------------------------
+# URL contains suspicious path patterns
+# ---------------------------------------------------------------------------
+body      __URI_SUSPICIOUS_PATH      /https?:\/\/[^\/\s]+\/(?:verify|login|signin|account|update|secure|confirm|banking|payment|wallet|reset|unlock|auth)\b/i
+describe  __URI_SUSPICIOUS_PATH      URI contains a suspicious path word
+
+# ---------------------------------------------------------------------------
+# URL obfuscation tricks
+# ---------------------------------------------------------------------------
+body      __URI_OBFUSCATED           /https?:\/\/[^\/\s]*(?:0|1|l|\{|\[|\@)[^\/\s]*\./i
+describe  __URI_OBFUSCATED           URI contains possible obfuscation
+
+# ---------------------------------------------------------------------------
+# Multiple HTTP links
+# ---------------------------------------------------------------------------
+body      __URI_MULTIPLE_LINKS       /https?:\/\//i
+describe  __URI_MULTIPLE_LINKS       Internal: message contains HTTP links
+# Note: this rule fires on any single link. Used as a meta helper.
+
+# ---------------------------------------------------------------------------
+# URI domain matches a known bad TLD pattern (only heuristic)
+# ---------------------------------------------------------------------------
+body      __URI_DASH_DOMAIN          /https?:\/\/[^\/\s]+-[a-z0-9-]{5,}\./i
+describe  __URI_DASH_DOMAIN          URI domain has many dashes
+
+# ---------------------------------------------------------------------------
+# Blacklisted URI hosts (managed via lists/blacklisted_domains.txt)
+# ---------------------------------------------------------------------------
+blacklist_uri_host  file:lists/blacklisted_domains.txt

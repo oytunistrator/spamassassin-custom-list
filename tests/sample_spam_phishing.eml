@@ -1,0 +1,17 @@
+From info@fatura-takip.click
+To: victim@example.com
+Subject: Faturaniz odeme bekliyor - Son gun!
+Date: Thu, 16 Jul 2026 14:00:00 +0300
+Message-ID: <fatura-999@click-server-12345.top>
+Reply-To: destek@fatura-takip.click
+X-Priority: 1
+Content-Type: text/html; charset=utf-8
+
+<html>
+<body>
+<p>Sayin abonemiz,</p>
+<p>Elektrik faturaniz odeme beklemektedir. Son odeme tarihi gecmistir.</p>
+<p>Hemen odeme yapmak icin <a href="https://fatura-odeme-secure.xyz/pay?inv=123">tiklayin</a>.</p>
+<p style="color:#ffffff">gizli metin gizli metin</p>
+</body>
+</html>

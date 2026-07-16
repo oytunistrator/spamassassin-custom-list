@@ -1,0 +1,7 @@
+# lists/blacklisted_senders.txt
+# Add additional blacklisted senders here.
+# This file is included by 80_blacklist.cf.
+#
+# Example:
+# blacklist_from spammer@example.com
+# blacklist_from *@bulk-spam.example

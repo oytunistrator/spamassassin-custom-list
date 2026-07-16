@@ -1,0 +1,160 @@
+# 90_scores.cf - central scoring overrides
+# All symbolic test scores are set here so they can be tuned in one place.
+# Rules prefixed with __ are internal helpers and do not need scores.
+
+# ---------------------------------------------------------------------------
+# DNSBL / RBL scores
+# ---------------------------------------------------------------------------
+score RCVD_IN_ZEN          3.0
+score RCVD_IN_SPAMCOP      2.5
+score RCVD_IN_ABUSECH      2.5
+score RCVD_IN_ABUSECH_BOT  2.5
+score RCVD_IN_PBL          1.5
+
+# ---------------------------------------------------------------------------
+# URIBL scores
+# ---------------------------------------------------------------------------
+score URIBL_SBL            2.5
+score URIBL_PH_SURBL       4.0
+score URIBL_MW_SURBL       5.0
+score URIBL_AB_SURBL       2.0
+score URIBL_BLACK          3.0
+score URIBL_GREY           1.5
+score URIBL_RED            2.5
+score URIBL_DBL            3.0
+
+# ---------------------------------------------------------------------------
+# Authentication scores
+# ---------------------------------------------------------------------------
+score SPF_FAIL             3.0
+score SPF_SOFTFAIL         1.5
+score SPF_NEUTRAL          1.0
+score SPF_NONE             0.5
+score SPF_PASS            -1.0
+
+score DKIM_INVALID         1.5
+score DKIM_SIGNED          0.0
+score DKIM_VALID          -1.0
+
+score DMARC_FAIL           3.0
+score DMARC_PASS          -1.5
+score DMARC_NONE           0.5
+score DMARC_QUARANTINE     1.0
+score DMARC_REJECT         2.0
+
+# ---------------------------------------------------------------------------
+# Body spam scores
+# ---------------------------------------------------------------------------
+score __BODY_URGENT_ACTION     1.5
+score __BODY_FINANCE_PHISH     2.0
+score __BODY_PRIZE_WIN         2.0
+score __BODY_LOTTERY           2.0
+score __BODY_CRYPTO            1.5
+score __BODY_MONEY_BACK        1.5
+score __BODY_PHARMA            1.5
+score __BODY_ADULT             1.5
+score __BODY_OBFUSCATED_TEXT   2.0
+score __BODY_ALL_CAPS_WORD     0.5
+score __BODY_EXCLAMATIONS      0.5
+score __BODY_DOLLAR_SIGNS      0.5
+score __RAW_HIDDEN_TEXT        1.5
+score __BODY_OPEN_ATTACHMENT   1.0
+
+# ---------------------------------------------------------------------------
+# Turkish spam scores
+# ---------------------------------------------------------------------------
+score __TR_KARGO               1.0
+score __TR_KARGO_ODEME         1.5
+score __TR_BANKA               2.0
+score __TR_FATURA              1.5
+score __TR_DEVLET              1.5
+score __TR_TAPU                1.5
+score __TR_KRIPTO              1.5
+score __TR_BAHIS               2.0
+score __TR_ODUL                1.5
+score __TR_HEMEN               1.0
+score __TR_IS                  1.5
+score __TR_SATICI              1.0
+score __TR_ALL_CAPS            1.0
+score __TR_OBFUSCATED          2.0
+
+# ---------------------------------------------------------------------------
+# Header scores
+# ---------------------------------------------------------------------------
+score __FROM_HAS_NUMBERS       1.0
+score __FROM_FREE_HOST         0.5
+score __FROM_GENERIC_TLD       1.0
+score __MSGID_LOCAL            0.5
+score __MSGID_NUMERIC          0.5
+score __DATE_IN_FUTURE         1.5
+score __DATE_IN_PAST_96        1.0
+score __XM_SPAM_MAILER         3.0
+score __TO_EMPTY               1.0
+score __CC_HAS_BCC_LEAK        0.5
+score __HIGH_PRIORITY          0.5
+score __IMPORTANCE_HIGH        0.5
+score __RCVD_HELO_NUMERIC      0.5
+score __RCVD_NO_RDNS           1.0
+score __REPLY_TO_PRESENT       0.2
+score __FROM_REPLYTO_DIFF      1.5
+
+# ---------------------------------------------------------------------------
+# URI heuristic scores
+# ---------------------------------------------------------------------------
+score __URI_SHORTENER          0.8
+score __URI_GENERIC_TLD        0.5
+score __URI_IP_ADDRESS         1.5
+score __URI_SUSPICIOUS_PATH    1.0
+score __URI_OBFUSCATED         1.5
+score __URI_DASH_DOMAIN        1.0
+
+# ---------------------------------------------------------------------------
+# Meta rule scores
+# ---------------------------------------------------------------------------
+score META_SPAM_DNA              5.0
+score META_AUTH_FAIL_AND_URI     4.0
+score META_TURKISH_SPAM          4.0
+score META_TURKISH_CARGO         4.0
+score META_TURKISH_BETTING       3.0
+score META_TURKISH_PRIZE         3.0
+score META_PHISHING_HEURISTICS   4.0
+score META_OBFUSCATED_SPAM       2.5
+score META_SUSPICIOUS_HEADERS    2.0
+score META_HIDDEN_HTML           3.5
+score META_BODY_HEADER_SPAM      2.0
+score META_CRYPTO_SPAM           3.0
+score META_JOB_LOAN_SPAM         2.5
+score META_GOVT_PHISH            4.0
+score META_TAPU_SCAM             3.0
+score META_WEAK_SPAM_SIGNALS     1.5
+score META_MARKETPLACE_SCAM      3.0
+score META_HIGH_CONFIDENCE_SPAM  6.0
+
+# ---------------------------------------------------------------------------
+# Whitelist scores (automatic rules from whitelist_from/whitelist_auth)
+# ---------------------------------------------------------------------------
+# SpamAssassin automatically creates USER_IN_WHITELIST and similar rules.
+# Keep their default strong negative scores.
+score USER_IN_WHITELIST        -100.0
+score USER_IN_DEF_WHITELIST    -100.0
+score USER_IN_AUTH_WHITELIST    -10.0
+
+# ---------------------------------------------------------------------------
+# Blacklist scores (automatic rules from blacklist_from/blacklist_to)
+# ---------------------------------------------------------------------------
+score USER_IN_BLACKLIST         10.0
+score USER_IN_BLACKLIST_TO      10.0
+
+# ---------------------------------------------------------------------------
+# Disable default Bayes rules (should already be off, but reinforce)
+# ---------------------------------------------------------------------------
+score BAYES_00                   0
+score BAYES_05                   0
+score BAYES_20                   0
+score BAYES_40                   0
+score BAYES_50                   0
+score BAYES_60                   0
+score BAYES_80                   0
+score BAYES_95                   0
+score BAYES_99                   0
+score BAYES_999                  0

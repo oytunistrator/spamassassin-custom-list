@@ -1,0 +1,71 @@
+# 20_auth.cf - SPF, DKIM, DMARC authentication rules
+# ---------------------------------------------------------------------------
+# These rules penalize senders that fail authentication or are unsigned.
+# ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
+# SPF
+# ---------------------------------------------------------------------------
+header    SPF_FAIL            eval:check_for_spf_fail()
+describe  SPF_FAIL            SPF: sender does not match SPF record (fail)
+
+header    SPF_SOFTFAIL        eval:check_for_spf_softfail()
+describe  SPF_SOFTFAIL        SPF: sender does not match SPF record (softfail)
+
+header    SPF_NEUTRAL         eval:check_for_spf_neutral()
+describe  SPF_NEUTRAL         SPF: sender has no SPF policy
+
+header    SPF_NONE            eval:check_for_spf_none()
+describe  SPF_NONE            SPF: no SPF record found
+
+header    SPF_PASS            eval:check_for_spf_pass()
+describe  SPF_PASS            SPF: sender matches SPF record
+
+# ---------------------------------------------------------------------------
+# DKIM
+# ---------------------------------------------------------------------------
+header    DKIM_INVALID        eval:check_dkim_verified()
+describe  DKIM_INVALID        DKIM signature invalid or verification failed
+
+header    DKIM_SIGNED         eval:check_dkim_signed()
+describe  DKIM_SIGNED         DKIM signature present
+
+header    DKIM_VALID          eval:check_dkim_verified()
+describe  DKIM_VALID          DKIM signature valid
+
+# DKIM_ADSP is deprecated in SA 4.0; use DMARC instead.
+
+# ---------------------------------------------------------------------------
+# DMARC
+# ---------------------------------------------------------------------------
+header    DMARC_FAIL          eval:check_dmarc_fail()
+describe  DMARC_FAIL          DMARC authentication failed
+
+header    DMARC_PASS          eval:check_dmarc_pass()
+describe  DMARC_PASS          DMARC authentication passed
+
+header    DMARC_NONE          eval:check_dmarc_none()
+describe  DMARC_NONE          DMARC policy not found
+
+header    DMARC_QUARANTINE    eval:check_dmarc_quarantine()
+describe  DMARC_QUARANTINE    DMARC policy suggests quarantine
+
+header    DMARC_REJECT        eval:check_dmarc_reject()
+describe  DMARC_REJECT        DMARC policy suggests reject
+
+# ---------------------------------------------------------------------------
+# Composite helpers
+# ---------------------------------------------------------------------------
+meta      __AUTH_FAIL         (SPF_FAIL || DMARC_FAIL)
+describe  __AUTH_FAIL         Internal: SPF or DMARC failed
+
+meta      __AUTH_WEAK         (SPF_SOFTFAIL || SPF_NEUTRAL || SPF_NONE || DMARC_NONE)
+describe  __AUTH_WEAK         Internal: weak or missing authentication
+
+meta      __AUTH_PASS         (SPF_PASS && DKIM_VALID && DMARC_PASS)
+describe  __AUTH_PASS         Internal: strong authentication
+
+# ---------------------------------------------------------------------------
+# Whitelist authentication hook
+# Matches are used in 70_whitelist.cf to give negative scores.
+# ---------------------------------------------------------------------------

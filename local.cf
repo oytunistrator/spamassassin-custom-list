@@ -1,0 +1,68 @@
+# local.cf - site-wide defaults for spamassassin-custom-list
+# SpamAssassin 4.0.0 / Perl 5.38.2
+#
+# This file is loaded first (alphabetically) and sets the baseline for the
+# entire ruleset. Other files use numeric prefixes to enforce load order.
+
+# ---------------------------------------------------------------------------
+# Scoring
+# ---------------------------------------------------------------------------
+required_score 6.0
+
+# ---------------------------------------------------------------------------
+# Bayesian learning - DISABLED
+# This ruleset is entirely hand-written and does not rely on auto-learning.
+# ---------------------------------------------------------------------------
+use_bayes           0
+use_learner         0
+bayes_auto_learn    0
+use_bayes_rules     0
+
+# ---------------------------------------------------------------------------
+# Locale / charset
+# Allow Turkish and English content; other charsets may trigger faraway rules.
+# ---------------------------------------------------------------------------
+ok_locales tr en
+normalize_charset 1
+
+# ---------------------------------------------------------------------------
+# Network tests
+# ---------------------------------------------------------------------------
+skip_rbl_checks   0
+skip_uribl_checks 0
+dns_available     yes
+
+# ---------------------------------------------------------------------------
+# Trusted network definitions
+# 192.168.1.0/24 is the only internal LAN for this server.
+# ---------------------------------------------------------------------------
+clear_trusted_networks
+clear_internal_networks
+trusted_networks   192.168.1.0/24
+internal_networks  192.168.1.0/24
+
+# ---------------------------------------------------------------------------
+# Trusted relay detection
+# ---------------------------------------------------------------------------
+originating_ip_headers X-Originating-IP X-Apparently-From X-SenderIP
+
+# ---------------------------------------------------------------------------
+# Default report headers
+# These may be refined in 99_final_actions.cf
+# ---------------------------------------------------------------------------
+clear_headers
+add_header all Status  _YESNO_, score=_SCORE_ required=_REQD_ tests=_TESTS_ autolearn=_AUTOLEARN_ version=_VERSION_
+add_header all Level   _STARS(*)_
+add_header spam Flag   _YESNOCAPS_
+
+# ---------------------------------------------------------------------------
+# Safe report handling
+# 1 = original message attached as message/rfc822 (safer for most setups)
+# 0 = only headers are modified; useful when MTA handles quarantine
+# ---------------------------------------------------------------------------
+report_safe 1
+
+# ---------------------------------------------------------------------------
+# Fold long headers for readability
+# ---------------------------------------------------------------------------
+fold_headers 1

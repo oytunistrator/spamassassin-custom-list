@@ -1,0 +1,55 @@
+# 15_uribl.cf - URI reputation / URI blocklist rules
+# Domains found in message bodies are queried against public URIBL services.
+# This is the primary mechanism for deciding whether a link is spammy.
+
+# ---------------------------------------------------------------------------
+# SURBL (multi)
+# ---------------------------------------------------------------------------
+urirhssub URIBL_SBL         multi.surbl.org.    A   2
+body      URIBL_SBL         eval:check_uridnsbl('URIBL_SBL')
+describe  URIBL_SBL         URI contains a domain listed in SURBL
+
+urirhssub URIBL_PH_SURBL    multi.surbl.org.    A   4
+body      URIBL_PH_SURBL    eval:check_uridnsbl('URIBL_PH_SURBL')
+describe  URIBL_PH_SURBL    URI contains a domain listed in SURBL phishing
+
+urirhssub URIBL_MW_SURBL    multi.surbl.org.    A   8
+body      URIBL_MW_SURBL    eval:check_uridnsbl('URIBL_MW_SURBL')
+describe  URIBL_MW_SURBL    URI contains a domain listed in SURBL malware
+
+urirhssub URIBL_AB_SURBL    multi.surbl.org.    A   16
+body      URIBL_AB_SURBL    eval:check_uridnsbl('URIBL_AB_SURBL')
+describe  URIBL_AB_SURBL    URI contains a domain listed in SURBL abused
+
+# ---------------------------------------------------------------------------
+# URIBL (black, grey, red)
+# ---------------------------------------------------------------------------
+urirhssub URIBL_BLACK       black.uribl.com.    A   2
+body      URIBL_BLACK       eval:check_uridnsbl('URIBL_BLACK')
+describe  URIBL_BLACK       URI contains a domain listed in URIBL black
+
+urirhssub URIBL_GREY        grey.uribl.com.     A   2
+body      URIBL_GREY        eval:check_uridnsbl('URIBL_GREY')
+describe  URIBL_GREY        URI contains a domain listed in URIBL grey
+
+urirhssub URIBL_RED         red.uribl.com.      A   2
+body      URIBL_RED         eval:check_uridnsbl('URIBL_RED')
+describe  URIBL_RED         URI contains a domain listed in URIBL red
+
+# ---------------------------------------------------------------------------
+# Spamhaus DBL (domain blocklist)
+# ---------------------------------------------------------------------------
+urirhssub URIBL_DBL         dbl.spamhaus.org.   A   2
+body      URIBL_DBL         eval:check_uridnsbl('URIBL_DBL')
+describe  URIBL_DBL         URI contains a domain listed in Spamhaus DBL
+
+# ---------------------------------------------------------------------------
+# Internal helper: any URIBL hit
+# ---------------------------------------------------------------------------
+meta      __URIBL_HIT       (URIBL_SBL || URIBL_PH_SURBL || URIBL_MW_SURBL || URIBL_AB_SURBL || URIBL_BLACK || URIBL_GREY || URIBL_RED || URIBL_DBL)
+describe  __URIBL_HIT       Internal: at least one URI blocklist hit
+
+# ---------------------------------------------------------------------------
+# Maximum domains to query per message
+# ---------------------------------------------------------------------------
+uridnsbl_max_domains 20

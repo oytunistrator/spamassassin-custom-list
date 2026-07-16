@@ -1,0 +1,77 @@
+# 60_meta_rules.cf - composite/meta rules
+# Combine multiple weak signals into strong spam decisions.
+
+# ---------------------------------------------------------------------------
+# High-confidence spam combinations
+# ---------------------------------------------------------------------------
+meta      META_SPAM_DNA              (__DNSBL_HIT && __URIBL_HIT)
+describe  META_SPAM_DNA              DNSBL + URIBL hit - very high confidence spam
+
+meta      META_AUTH_FAIL_AND_URI     (__AUTH_FAIL && (__URIBL_HIT || __URI_SHORTENER || __URI_GENERIC_TLD))
+describe  META_AUTH_FAIL_AND_URI     Auth failure combined with suspicious URI
+
+meta      META_TURKISH_SPAM          (__TR_BANKA && (__URI_SHORTENER || __URI_GENERIC_TLD || __URI_IP_ADDRESS))
+describe  META_TURKISH_SPAM          Turkish bank phish with suspicious link
+
+meta      META_TURKISH_CARGO         (__TR_KARGO && __TR_KARGO_ODEME && (__URI_SHORTENER || __URI_GENERIC_TLD))
+describe  META_TURKISH_CARGO         Turkish cargo scam with payment link
+
+meta      META_TURKISH_BETTING       (__TR_BAHIS && __TR_HEMEN)
+describe  META_TURKISH_BETTING       Turkish betting spam with urgency
+
+meta      META_TURKISH_PRIZE         (__TR_ODUL && __TR_HEMEN)
+describe  META_TURKISH_PRIZE         Turkish prize spam with urgency
+
+meta      META_PHISHING_HEURISTICS   (__BODY_FINANCE_PHISH || __TR_BANKA || __TR_FATURA) && (__URI_SHORTENER || __URI_GENERIC_TLD || __URI_IP_ADDRESS || __URI_SUSPICIOUS_PATH)
+describe  META_PHISHING_HEURISTICS   Financial phish with suspicious link
+
+meta      META_OBFUSCATED_SPAM       (__BODY_OBFUSCATED_TEXT || __TR_OBFUSCATED || __BODY_ALL_CAPS_WORD)
+describe  META_OBFUSCATED_SPAM       Obfuscated or aggressive spam text
+
+meta      META_SUSPICIOUS_HEADERS    (__FROM_HAS_NUMBERS || __FROM_GENERIC_TLD || __FROM_REPLYTO_DIFF || __DATE_IN_FUTURE || __XM_SPAM_MAILER)
+describe  META_SUSPICIOUS_HEADERS    Multiple suspicious header signals
+
+meta      META_HIDDEN_HTML           (__RAW_HIDDEN_TEXT && (__BODY_FINANCE_PHISH || __TR_BANKA || __TR_ODUL))
+describe  META_HIDDEN_HTML           Hidden HTML text with spam content
+
+# ---------------------------------------------------------------------------
+# Medium-confidence combinations
+# ---------------------------------------------------------------------------
+meta      META_BODY_HEADER_SPAM      (__BODY_URGENT_ACTION && __HIGH_PRIORITY)
+describe  META_BODY_HEADER_SPAM      Urgent body + high priority header
+
+meta      META_CRYPTO_SPAM           (__BODY_CRYPTO && (__URI_SHORTENER || __URI_GENERIC_TLD || __URI_IP_ADDRESS))
+describe  META_CRYPTO_SPAM           Crypto spam with suspicious link
+
+meta      META_JOB_LOAN_SPAM         (__TR_IS && (__TR_HEMEN || __BODY_MONEY_BACK))
+describe  META_JOB_LOAN_SPAM         Job/loan spam with urgency
+
+meta      META_GOVT_PHISH            (__TR_DEVLET && (__URI_SHORTENER || __URI_GENERIC_TLD || __URI_IP_ADDRESS))
+describe  META_GOVT_PHISH            Government-themed phish with suspicious link
+
+meta      META_TAPU_SCAM             (__TR_TAPU && (__TR_HEMEN || __URI_SHORTENER || __URI_GENERIC_TLD))
+describe  META_TAPU_SCAM             Turkish real-estate scam with urgency/link
+
+# ---------------------------------------------------------------------------
+# Low-confidence but noisy patterns
+# ---------------------------------------------------------------------------
+meta      META_WEAK_SPAM_SIGNALS     (__BODY_ALL_CAPS_WORD && __BODY_EXCLAMATIONS && __URI_GENERIC_TLD)
+describe  META_WEAK_SPAM_SIGNALS     Weak spam signals combined
+
+meta      META_MARKETPLACE_SCAM      (__TR_SATICI && (__URI_SHORTENER || __URI_GENERIC_TLD || __URI_IP_ADDRESS))
+describe  META_MARKETPLACE_SCAM      Marketplace scam with suspicious link
+
+# ---------------------------------------------------------------------------
+# Internal aggregate helpers
+# ---------------------------------------------------------------------------
+meta      __ANY_SPAM_SIGNAL          (__BODY_URGENT_ACTION || __BODY_FINANCE_PHISH || __BODY_PRIZE_WIN || __BODY_LOTTERY || __BODY_CRYPTO || __BODY_PHARMA || __BODY_ADULT || __TR_KARGO || __TR_BANKA || __TR_FATURA || __TR_DEVLET || __TR_TAPU || __TR_KRIPTO || __TR_BAHIS || __TR_ODUL || __TR_IS || __TR_SATICI)
+describe  __ANY_SPAM_SIGNAL          Internal: at least one spam signal present
+
+meta      __ANY_URI_SIGNAL           (__URI_SHORTENER || __URI_GENERIC_TLD || __URI_IP_ADDRESS || __URI_SUSPICIOUS_PATH || __URI_DASH_DOMAIN)
+describe  __ANY_URI_SIGNAL          Internal: at least one URI heuristic present
+
+# ---------------------------------------------------------------------------
+# Final high-confidence meta rule
+# ---------------------------------------------------------------------------
+meta      META_HIGH_CONFIDENCE_SPAM  (__DNSBL_HIT || __URIBL_HIT || __AUTH_FAIL) && (__ANY_SPAM_SIGNAL || __ANY_URI_SIGNAL)
+describe  META_HIGH_CONFIDENCE_SPAM  High-confidence spam based on reputation + content

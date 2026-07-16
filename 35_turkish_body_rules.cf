@@ -1,0 +1,79 @@
+# 35_turkish_body_rules.cf - Turkish-language spam detection
+# Patterns specific to spam targeting Turkish users.
+# Keep scores moderate; combine with meta rules for strong decisions.
+
+# ---------------------------------------------------------------------------
+# Cargo / delivery scams
+# ---------------------------------------------------------------------------
+body      __TR_KARGO                 /\b(?:kargonuz|kargo takip|teslimat|kargo bedeli|kargonuz hazır|kargonuz yolda|kargo şubesi|taahhütlü)\b/i
+describe  __TR_KARGO                 Turkish cargo/delivery language
+
+body      __TR_KARGO_ODEME           /\b(?:kargo ücreti|kargo bedeli ödeme|ödeme yapmanız|gümrük vergisi|kargo gönderimi)\b/i
+describe  __TR_KARGO_ODEME           Turkish cargo payment request
+
+# ---------------------------------------------------------------------------
+# Bank / phishing
+# ---------------------------------------------------------------------------
+body      __TR_BANKA                 /\b(?:banka hesabınız|hesabınız askıya alındı|kartınız bloke|şifrenizi girin|hesap doğrulama|bankacılık işlemi|mobil şube|internet şube)\b/i
+describe  __TR_BANKA                 Turkish bank phishing language
+
+body      __TR_FATURA                /\b(?:faturanız|fatura ödeme|fatura hatırlatma|elektrik faturası|doğalgaz faturası|su faturası|fatura borcu)\b/i
+describe  __TR_FATURA                Turkish invoice/bill phishing
+
+# ---------------------------------------------------------------------------
+# Government / e-devlet scams
+# ---------------------------------------------------------------------------
+body      __TR_DEVLET                /\b(?:e-devlet|edevlet|kimlik doğrulama|tapu işlemi|sgk|vergi dairesi|gib\.gov|harc|ceza ödeme)\b/i
+describe  __TR_DEVLET                Turkish government-themed phishing
+
+body      __TR_TAPU                  /\b(?:tapu|tapu işlemi|gayrimenkul|arsa|konut|satış işlemi|tapu kaydı)\b/i
+describe  __TR_TAPU                  Turkish real-estate/tapu scam
+
+# ---------------------------------------------------------------------------
+# Crypto / betting / gambling
+# ---------------------------------------------------------------------------
+body      __TR_KRIPTO                /\b(?:kripto|bitcoin al|bitcoin sat|coin|token|yatırım fırsatı|hızlı kazanç|guaranteed|kazanma garantisi)\b/i
+describe  __TR_KRIPTO                Turkish crypto/investment spam
+
+body      __TR_BAHIS                 /\b(?:bahis|iddaa|canlı bahis|casino|slot|poker|bonus|freebet|deneme bonusu|kupon)\b/i
+describe  __TR_BAHIS                 Turkish betting/gambling spam
+
+# ---------------------------------------------------------------------------
+# Prize / lottery / gift
+# ---------------------------------------------------------------------------
+body      __TR_ODUL                  /\b(?:ödül|kazandınız|çekiliş|hediye|bedava|ücretsiz|kazanma şansı|son gün|hemen tıkla)\b/i
+describe  __TR_ODUL                  Turkish prize/gift spam language
+
+body      __TR_HEMEN                 /\b(?:hemen tıklayın|tıklayın|buraya tıkla|linke tıkla|son 24 saat|sınırlı süre|acele edin)\b/i
+describe  __TR_HEMEN                 Turkish urgency/click language
+
+# ---------------------------------------------------------------------------
+# Job / loan scams
+# ---------------------------------------------------------------------------
+body      __TR_IS                    /\b(?:iş fırsatı|evden çalışma|ek gelir|yarım gün iş|serbest zamanlı|hızlı para|kredi başvurusu|düşük faizli kredi)\b/i
+describe  __TR_IS                    Turkish job/loan spam
+
+# ---------------------------------------------------------------------------
+# E-commerce / marketplace scams
+# ---------------------------------------------------------------------------
+body      __TR_SATICI                /\b(?:satıcı|alıcı|ilan|ürününüz|siparişiniz|kargolama|ön ödeme|kapıda ödeme|takas)\b/i
+describe  __TR_SATICI                Turkish marketplace scam language
+
+# ---------------------------------------------------------------------------
+# Aggressive Turkish all-caps or punctuation
+# ---------------------------------------------------------------------------
+body      __TR_ALL_CAPS              /\b(?:KAZANDINIZ|BEDAVA|HEMEN|TıKLAYIN|SON GÜN|ÖDÜL|FIRSAT|ACİL)\b/
+describe  __TR_ALL_CAPS              Aggressive Turkish all-caps words
+
+# ---------------------------------------------------------------------------
+# Turkish obfuscated spam words
+# ---------------------------------------------------------------------------
+body      __TR_OBFUSCATED            /\b(?:k\s*a\s*z\s*a\s*n\s*d\s*ı\s*n\s*ı\s*z|h\s*e\s*m\s*e\s*n\s*t\s*ı\s*k\s*l\s*a\s*y\s*ı\s*n)\b/i
+describe  __TR_OBFUSCATED            Obfuscated Turkish spam words
+
+# ---------------------------------------------------------------------------
+# Dynamic phrase list
+# The file lists/turkish_spam_phrases.txt is provided for manual reference
+# and maintenance.  SpamAssassin body rules cannot be loaded from external
+# lists, so phrases must be added as explicit rules above when needed.
+# ---------------------------------------------------------------------------

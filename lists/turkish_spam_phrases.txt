@@ -1,0 +1,26 @@
+# lists/turkish_spam_phrases.txt
+# Reference list of Turkish spam/phishing phrases.
+# These are NOT loaded automatically; add them as explicit body rules in
+# 35_turkish_body_rules.cf when you want to activate them.
+#
+# kargonuz hazır
+# kargo bedeli ödeme
+# hesabınız askıya alındı
+# kartınız bloke edildi
+# şifrenizi girin
+# faturanız ödenmedi
+# fatura borcu
+# tapu işlemi
+# kripto para fırsatı
+# bahis bonusu
+# deneme bonusu
+# kazandınız
+# bedava hediye
+# hemen tıklayın
+# son 24 saat
+# ek gelir
+# evden çalışma
+# düşük faizli kredi
+# ödeme alındı
+# gümrük vergisi
+# kargo gönderimi

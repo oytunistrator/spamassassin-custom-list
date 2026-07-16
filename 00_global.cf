@@ -1,0 +1,41 @@
+# 00_global.cf - global network, DNS and locale settings
+# Loaded immediately after local.cf
+
+# ---------------------------------------------------------------------------
+# Network boundaries (reinforced from local.cf for clarity)
+# ---------------------------------------------------------------------------
+trusted_networks   192.168.1.0/24
+internal_networks  192.168.1.0/24
+
+# Treat local mail as trusted unless forged.
+always_trust_envelope_sender 0
+
+# ---------------------------------------------------------------------------
+# DNS resolver options
+# Increase EDNS payload for modern resolvers.
+# ---------------------------------------------------------------------------
+dns_options edns=4096 rotate
+
+# Avoid common registered ports for DNS source ports.
+# This is a default-style restriction; remove if it breaks your resolver.
+dns_local_ports_avoid 1-1023
+
+# ---------------------------------------------------------------------------
+# DNS query restrictions
+# Allow/deny specific DNSBL zones if your policy requires it.
+# By default all configured zones are queried.
+# ---------------------------------------------------------------------------
+# Example:
+# dns_query_restriction allow zen.spamhaus.org
+# dns_query_restriction deny  example-dnsbl.net
+
+# ---------------------------------------------------------------------------
+# Locale and charset reinforcement
+# ---------------------------------------------------------------------------
+ok_locales tr en
+normalize_charset 1
+
+# ---------------------------------------------------------------------------
+# Trusted headers that may contain the envelope sender
+# ---------------------------------------------------------------------------
+envelope_sender_header X-Envelope-From Envelope-Sender Return-Path

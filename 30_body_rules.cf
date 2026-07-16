@@ -1,0 +1,69 @@
+# 30_body_rules.cf - general body spam rules
+# Generic English/global spam patterns. Low-to-medium scores because these
+# are only heuristics; reputation checks come from DNSBL/URIBL.
+
+# ---------------------------------------------------------------------------
+# Financial / phishing language
+# ---------------------------------------------------------------------------
+body      __BODY_URGENT_ACTION       /\b(?:urgent action|act now|immediate action|verify your account|account (?:suspended|limited|restricted)|confirm your (?:identity|payment))\b/i
+describe  __BODY_URGENT_ACTION       Urgent action language in body
+
+body      __BODY_FINANCE_PHISH       /\b(?:update your (?:payment|billing)|unusual activity|suspicious transaction|refund pending|invoice attached|payment failed)\b/i
+describe  __BODY_FINANCE_PHISH       Financial phishing language
+
+body      __BODY_PRIZE_WIN           /\b(?:congratulations you won|you are a winner|claim your prize|won a gift|free gift|selected as a winner)\b/i
+describe  __BODY_PRIZE_WIN           Prize/lottery/win language
+
+body      __BODY_LOTTERY             /\b(?:lottery|jackpot|cash prize|million dollars|random draw|lucky winner)\b/i
+describe  __BODY_LOTTERY             Lottery scam language
+
+# ---------------------------------------------------------------------------
+# Crypto / investment scams
+# ---------------------------------------------------------------------------
+body      __BODY_CRYPTO              /\b(?:bitcoin|ethereum|crypto|cryptocurrency|wallet|blockchain|investment opportunity|guaranteed return|double your (?:btc|bitcoin|money))\b/i
+describe  __BODY_CRYPTO              Crypto/investment scam language
+
+body      __BODY_MONEY_BACK          /\b(?:money back guarantee|risk free|no risk|100% guaranteed|guaranteed income|work from home|earn extra cash)\b/i
+describe  __BODY_MONEY_BACK          Money-making scam language
+
+# ---------------------------------------------------------------------------
+# Pharma / adult / illegal products
+# ---------------------------------------------------------------------------
+body      __BODY_PHARMA              /\b(?:viagra|cialis|weight loss|diet pill|no prescription|pain relief|cheap meds)\b/i
+describe  __BODY_PHARMA              Pharmaceutical spam language
+
+body      __BODY_ADULT               /\b(?:hot singles|adult dating|meet singles|webcam|xxx|porn|escort)\b/i
+describe  __BODY_ADULT               Adult content spam
+
+# ---------------------------------------------------------------------------
+# Obfuscation / HTML tricks
+# ---------------------------------------------------------------------------
+body      __BODY_OBFUSCATED_TEXT     /\b(?:v\s*i\s*a\s*g\s*r\s*a|f\s*r\s*e\s*e\s*\$|w\s*i\s*n\s*n\s*i\s*n\s*g)\b/i
+describe  __BODY_OBFUSCATED_TEXT     Spaced/obfuscated spam words
+
+body      __BODY_ALL_CAPS_WORD       /\b[A-Z]{8,}\b/
+describe  __BODY_ALL_CAPS_WORD       Long all-caps word in body
+
+body      __BODY_EXCLAMATIONS        /!{3,}/
+describe  __BODY_EXCLAMATIONS        Multiple exclamation marks
+
+body      __BODY_DOLLAR_SIGNS        /\$\d{3,}/
+describe  __BODY_DOLLAR_SIGNS        Dollar amounts over $100
+
+# ---------------------------------------------------------------------------
+# Hidden text / mismatch tricks
+# ---------------------------------------------------------------------------
+rawbody   __RAW_HIDDEN_TEXT          /(?:color\s*=\s*["']?\#ffffff|font-size\s*:\s*0|display\s*:\s*none|visibility\s*:\s*hidden)/i
+describe  __RAW_HIDDEN_TEXT          Hidden HTML text detected
+
+# ---------------------------------------------------------------------------
+# Charset faraway (non-tr/non-en)
+# ---------------------------------------------------------------------------
+body      __BODY_FARAWAY_CHARSET     eval:check_language()
+describe  __BODY_FARAWAY_CHARSET     Body contains faraway charset
+
+# ---------------------------------------------------------------------------
+# Attachment abuse hints
+# ---------------------------------------------------------------------------
+body      __BODY_OPEN_ATTACHMENT     /\b(?:open the attachment|see attached|review attached document|download attachment|password for file)\b/i
+describe  __BODY_OPEN_ATTACHMENT     Urges opening an attachment

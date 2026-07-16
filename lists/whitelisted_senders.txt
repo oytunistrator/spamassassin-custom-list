@@ -1,0 +1,7 @@
+# lists/whitelisted_senders.txt
+# Add additional trusted senders here, one per line.
+# This file is included by 70_whitelist.cf.
+#
+# Example:
+# whitelist_from john.doe@example.com
+# whitelist_from *@newsletter.example.com

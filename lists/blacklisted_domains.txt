@@ -1,0 +1,7 @@
+# lists/blacklisted_domains.txt
+# Add additional blacklisted domains here.
+# This file is included by 80_blacklist.cf.
+#
+# Example:
+# blacklist_from *@spammer.example
+# blacklist_uri_host spammer.example
