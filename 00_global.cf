@@ -2,10 +2,12 @@
 # Loaded immediately after local.cf
 
 # ---------------------------------------------------------------------------
-# Network boundaries (reinforced from local.cf for clarity)
+# Network boundaries
+# SpamAssassin can auto-detect trusted RFC1918 relays when these are not set.
+# For a single known LAN, uncomment and set both values to the same range.
 # ---------------------------------------------------------------------------
-trusted_networks   192.168.1.0/24
-internal_networks  192.168.1.0/24
+# trusted_networks   192.168.1.0/24
+# internal_networks  192.168.1.0/24
 
 # Treat local mail as trusted unless forged.
 always_trust_envelope_sender 0
