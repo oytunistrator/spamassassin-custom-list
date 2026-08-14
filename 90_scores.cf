@@ -59,6 +59,10 @@ score __BODY_EXCLAMATIONS      0.5
 score __BODY_DOLLAR_SIGNS      0.5
 score __RAW_HIDDEN_TEXT        1.5
 score __BODY_OPEN_ATTACHMENT   1.0
+score __BODY_BULK_PURCHASE     1.5
+score __BODY_WIRE_TRANSFER     1.5
+score __BODY_CATALOG_REQUEST   0.8
+score __BODY_FOREIGN_BUSINESS  0.8
 
 # ---------------------------------------------------------------------------
 # Turkish spam scores
@@ -97,6 +101,8 @@ score __RCVD_HELO_NUMERIC      0.5
 score __RCVD_NO_RDNS           1.0
 score __REPLY_TO_PRESENT       0.2
 score __XM_PRESENT             0.0
+score __FROM_FREEMAIL          0.0
+score __TO_UNDISCLOSED         0.0
 
 # ---------------------------------------------------------------------------
 # URI heuristic scores
@@ -128,6 +134,7 @@ score META_GOVT_PHISH            4.0
 score META_TAPU_SCAM             3.0
 score META_WEAK_SPAM_SIGNALS     1.5
 score META_MARKETPLACE_SCAM      3.0
+score META_ADVANCE_FEE_BUSINESS  5.0
 score META_HIGH_CONFIDENCE_SPAM  6.0
 
 # ---------------------------------------------------------------------------

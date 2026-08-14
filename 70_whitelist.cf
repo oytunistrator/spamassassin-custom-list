@@ -139,50 +139,20 @@ whitelist_from  *@icdas.com.tr
 whitelist_from  *@iski.gov.tr
 
 # ---------------------------------------------------------------------------
-# Global trusted services
+# Global services
+# Consumer/free-mail providers are deliberately not whitelisted. A spammer
+# can use a valid Gmail/Outlook account and obtain valid DKIM from that
+# provider; authentication alone does not mean the message is wanted.
 # ---------------------------------------------------------------------------
-whitelist_from  *@google.com
-whitelist_from  *@gmail.com
-whitelist_from  *@youtube.com
-whitelist_from  *@microsoft.com
-whitelist_from  *@outlook.com
-whitelist_from  *@live.com
-whitelist_from  *@hotmail.com
-whitelist_from  *@apple.com
-whitelist_from  *@icloud.com
-whitelist_from  *@me.com
-whitelist_from  *@steamcommunity.com
-whitelist_from  *@steampowered.com
-whitelist_from  *@amazon.com
-whitelist_from  *@amazon.co.uk
-whitelist_from  *@amazon.de
-whitelist_from  *@paypal.com
-whitelist_from  *@linkedin.com
-whitelist_from  *@github.com
-whitelist_from  *@gitlab.com
-whitelist_from  *@instagram.com
-whitelist_from  *@facebook.com
-whitelist_from  *@twitter.com
-whitelist_from  *@x.com
-whitelist_from  *@reddit.com
-whitelist_from  *@spotify.com
-whitelist_from  *@netflix.com
-whitelist_from  *@discord.com
-whitelist_from  *@dropbox.com
-whitelist_from  *@zoom.us
-whitelist_from  *@slack.com
-whitelist_from  *@telegram.org
-whitelist_from  *@whatsapp.com
-whitelist_from  *@cloudflare.com
+# Keep this section intentionally empty. Add only a specifically trusted
+# sender/domain to the editable lists below.
 
 # ---------------------------------------------------------------------------
-# Whitelist authentication-based senders (SPF/DKIM/DMARC)
+# Authentication is not an allow-list. Do not whitelist a sender merely
+# because SPF/DKIM/DMARC passed; consumer and compromised accounts can pass.
 # ---------------------------------------------------------------------------
-whitelist_auth  *@google.com
-whitelist_auth  *@microsoft.com
-whitelist_auth  *@apple.com
-whitelist_auth  *@amazon.com
-whitelist_auth  *@paypal.com
+# Add narrowly-scoped whitelist_auth entries only for locally controlled
+# senders, if needed.
 
 # ---------------------------------------------------------------------------
 # URI whitelist - trusted domains found in message bodies

@@ -81,3 +81,10 @@ describe  __RCVD_NO_RDNS             Last untrusted relay has no rDNS
 # ---------------------------------------------------------------------------
 header    __REPLY_TO_PRESENT         Reply-To =~ /./
 describe  __REPLY_TO_PRESENT         Reply-To header present
+
+# Supporting signals for unsolicited business-proposal spam.
+header    __FROM_FREEMAIL            From =~ /@(?:gmail|googlemail|outlook|hotmail|live|yahoo|proton\.me|protonmail\.com)\b/i
+describe  __FROM_FREEMAIL            Message originates from a consumer/free-mail provider
+
+header    __TO_UNDISCLOSED           To =~ /undisclosed-recipients/i
+describe  __TO_UNDISCLOSED           Message uses undisclosed recipients

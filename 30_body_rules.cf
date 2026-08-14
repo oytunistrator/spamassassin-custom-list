@@ -67,3 +67,18 @@ describe  __BODY_FARAWAY_CHARSET     Body contains faraway charset
 # ---------------------------------------------------------------------------
 body      __BODY_OPEN_ATTACHMENT     /\b(?:open the attachment|see attached|review attached document|download attachment|password for file)\b/i
 describe  __BODY_OPEN_ATTACHMENT     Urges opening an attachment
+
+# ---------------------------------------------------------------------------
+# Advance-fee / fake business purchase solicitations
+# ---------------------------------------------------------------------------
+body      __BODY_BULK_PURCHASE       /\b(?:buy(?:ing)?|purchase|order)\b.{0,100}\b(?:large quantity|bulk|long[- ]term contract|shipment)\b/i
+describe  __BODY_BULK_PURCHASE       Unsolicited bulk-purchase business proposal
+
+body      __BODY_WIRE_TRANSFER       /\b(?:bank wire transfer|wire transfer|telegraphic transfer|T\.T\.?|down payment|payment terms)\b/i
+describe  __BODY_WIRE_TRANSFER       Business proposal requests wire/payment terms
+
+body      __BODY_CATALOG_REQUEST     /\b(?:catalog(?:ue)?|product details|FOB price|contact details)\b/i
+describe  __BODY_CATALOG_REQUEST     Unsolicited product/catalog request
+
+body      __BODY_FOREIGN_BUSINESS    /\b(?:here in Ghana|Accra,? Ghana|Nigeria|Lagos)\b/i
+describe  __BODY_FOREIGN_BUSINESS    Common advance-fee business location wording
