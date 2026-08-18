@@ -14,10 +14,6 @@ echo "=== Turkish phishing sample ==="
 spamassassin -t < tests/sample_spam_phishing.eml
 
 echo ""
-echo "=== Fake bounce sample ==="
-spamassassin -t < tests/sample_spam_fake_bounce.eml
-
-echo ""
 echo "=== Ham sample ==="
 spamassassin -t < tests/sample_ham.eml
 
