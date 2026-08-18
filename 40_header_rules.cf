@@ -88,3 +88,20 @@ describe  __FROM_FREEMAIL            Message originates from a consumer/free-mai
 
 header    __TO_UNDISCLOSED           To =~ /undisclosed-recipients/i
 describe  __TO_UNDISCLOSED           Message uses undisclosed recipients
+
+header    __SUBJ_CONFIRM_CONTINUE     Subject =~ /\b(?:please )?confirm to continue\b/i
+describe  __SUBJ_CONFIRM_CONTINUE     Subject asks recipient to confirm to continue
+
+# ---------------------------------------------------------------------------
+# Fake delivery-status / Microsoft-style bounce helpers
+# ---------------------------------------------------------------------------
+# Legitimate DSNs commonly have an empty Return-Path, so these are only
+# supporting signals and are intentionally combined with body/template rules.
+header    __BOUNCE_EMPTY_RETURN_PATH Return-Path =~ /^<>\s*$/i
+describe  __BOUNCE_EMPTY_RETURN_PATH Empty Return-Path in a possible bounce
+
+header    __BOUNCE_NO_DATE           !exists:Date
+describe  __BOUNCE_NO_DATE           Possible bounce is missing Date header
+
+header    __BOUNCE_NO_MESSAGE_ID     !exists:Message-Id
+describe  __BOUNCE_NO_MESSAGE_ID     Possible bounce is missing Message-ID header

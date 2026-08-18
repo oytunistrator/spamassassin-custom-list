@@ -82,3 +82,12 @@ describe  __BODY_CATALOG_REQUEST     Unsolicited product/catalog request
 
 body      __BODY_FOREIGN_BUSINESS    /\b(?:here in Ghana|Accra,? Ghana|Nigeria|Lagos)\b/i
 describe  __BODY_FOREIGN_BUSINESS    Common advance-fee business location wording
+
+# ---------------------------------------------------------------------------
+# Fake delivery-status / Microsoft-style bounce templates
+# ---------------------------------------------------------------------------
+body      __BODY_FAKE_BOUNCE         /\b(?:your message to|couldn't be delivered|wasn't found at|unknown to address|how to fix it|address may be misspelled|may not exist)\b/i
+describe  __BODY_FAKE_BOUNCE         Delivery-failure template language
+
+body      __BODY_BOUNCE_ACTION       /\b(?:action required|please confirm to continue|confirm to continue)\b/i
+describe  __BODY_BOUNCE_ACTION       Action/confirmation language in a possible bounce

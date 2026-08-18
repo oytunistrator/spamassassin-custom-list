@@ -64,10 +64,13 @@ describe  META_MARKETPLACE_SCAM      Marketplace scam with suspicious link
 meta      META_ADVANCE_FEE_BUSINESS  (__BODY_BULK_PURCHASE && __BODY_WIRE_TRANSFER && (__FROM_FREEMAIL || __TO_UNDISCLOSED))
 describe  META_ADVANCE_FEE_BUSINESS  Bulk-purchase/payment solicitation from anonymous or free-mail sender
 
+meta      META_FAKE_BOUNCE           (__BODY_FAKE_BOUNCE && (__BOUNCE_EMPTY_RETURN_PATH || __BOUNCE_NO_DATE || __BOUNCE_NO_MESSAGE_ID) && (__BODY_BOUNCE_ACTION || __SUBJ_CONFIRM_CONTINUE || __RAW_HIDDEN_TEXT))
+describe  META_FAKE_BOUNCE           Fake delivery-failure notification with header/template anomalies
+
 # ---------------------------------------------------------------------------
 # Internal aggregate helpers
 # ---------------------------------------------------------------------------
-meta      __ANY_SPAM_SIGNAL          (__BODY_URGENT_ACTION || __BODY_FINANCE_PHISH || __BODY_PRIZE_WIN || __BODY_LOTTERY || __BODY_CRYPTO || __BODY_PHARMA || __BODY_ADULT || __BODY_BULK_PURCHASE || __BODY_WIRE_TRANSFER || __BODY_CATALOG_REQUEST || __BODY_FOREIGN_BUSINESS || __TR_KARGO || __TR_BANKA || __TR_FATURA || __TR_DEVLET || __TR_TAPU || __TR_KRIPTO || __TR_BAHIS || __TR_ODUL || __TR_IS || __TR_SATICI)
+meta      __ANY_SPAM_SIGNAL          (__BODY_URGENT_ACTION || __BODY_FINANCE_PHISH || __BODY_PRIZE_WIN || __BODY_LOTTERY || __BODY_CRYPTO || __BODY_PHARMA || __BODY_ADULT || __BODY_BULK_PURCHASE || __BODY_WIRE_TRANSFER || __BODY_CATALOG_REQUEST || __BODY_FOREIGN_BUSINESS || __BODY_FAKE_BOUNCE || __BODY_BOUNCE_ACTION || __TR_KARGO || __TR_BANKA || __TR_FATURA || __TR_DEVLET || __TR_TAPU || __TR_KRIPTO || __TR_BAHIS || __TR_ODUL || __TR_IS || __TR_SATICI)
 describe  __ANY_SPAM_SIGNAL          Internal: at least one spam signal present
 
 meta      __ANY_URI_SIGNAL           (__URI_SHORTENER || __URI_GENERIC_TLD || __URI_IP_ADDRESS || __URI_SUSPICIOUS_PATH || __URI_DASH_DOMAIN)
